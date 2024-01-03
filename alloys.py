@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # Given data
 data = {
@@ -91,7 +92,7 @@ data = {
 ],
 
 # Sanskrit names for the groups
-sanskrit_iso_names = [
+"sanskrit_iso_names" : [
     "Pr̥thvītala Dhātu Samūhaḥ", 
     "Uparibhūmi Miśradhātu Samūhaḥ", 
     "Bhūparpa Ayassamūhaḥ",
@@ -133,7 +134,7 @@ sanskrit_iso_names = [
 ],
 
 # Sanskrit names for the groups
-sanskrit_devanagari_names = [
+"sanskrit_devanagari_names" : [
     "पृथ्वीतल धातु समूहः", 
     "उपरिभूमि मिश्रधातु समूहः", 
     "भूपर्प अयस्समूहः", 
@@ -175,7 +176,7 @@ sanskrit_devanagari_names = [
 ],
 
 # Additional descriptions and notes
-additional_descriptions = [
+"additional_descriptions" : [
     "Includes metals like iron, copper, and aluminum, found in the uppermost layer of the Earth's crust.",
     "Zinc, lead, and tin, which are often mined from shallow underground mines.",
     "Deep iron deposits, accessible through advanced mining techniques.",
@@ -228,6 +229,41 @@ df = pd.DataFrame({
 
 # Export the dataframe to an Excel file
 file_path = 'Element_Groups_Depths.xlsx'
-df.to_excel(file_path, index=False)
+#df.to_excel(file_path, index=False)
 
-file_path
+print(file_path)
+
+# Open the saved Excel file
+df = pd.read_excel('Element_Groups_Depths.xlsx')
+
+# Create a figure with a specific size
+plt.figure(figsize=(10, 8))
+
+# Plotting each group with its respective depth
+for i, group in enumerate(df["Sanskrit ISO Name"]):
+    # Extract the depth range and parse it for numeric value
+    depth_range = df["Depth Range (km)"][i]
+    depth_values = depth_range.split('-')
+    avg_depth = (float(depth_values[0]) + float(depth_values[-1])) / 2  # Calculate average depth for each range
+
+    plt.barh(group, avg_depth, align='center', color='skyblue', edgecolor='black')
+
+# Set labels and title
+plt.xlabel('Average Depth (km)')
+plt.ylabel('Sanskrit ISO Names')
+plt.title('Groups of Elements with Respective Depths in the Earth\'s Crust')
+
+# Invert y-axis to show surface at the top
+plt.gca().invert_yaxis()
+
+# Show grid
+plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+
+# Adjust layout to fit the window
+plt.tight_layout()
+
+# Show the graph
+plt.show()
+
+# Save the plot as a file
+plt.savefig('alloy_sanskrit_iso_plot.png', dpi=600)
