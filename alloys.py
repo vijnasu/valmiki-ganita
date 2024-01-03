@@ -264,3 +264,22 @@ plt.savefig('alloy_sanskrit_iso_plot.png', dpi=600)
 
 # Show the graph
 plt.show()
+
+# Create a figure for Element Group
+plt.figure(figsize=(10, 8))
+
+# Plotting each group with its respective depth for Element Group
+for i, group in enumerate(df["Element Group"]):
+    depth_range = df["Depth Range (km)"][i]
+    depth_values = depth_range.split('-')
+    avg_depth = (float(depth_values[0]) + float(depth_values[-1])) / 2
+    plt.barh(group, avg_depth, align='center', color='lightcoral', edgecolor='black')
+
+plt.xlabel('Average Depth (km)')
+plt.ylabel('Element Group')
+plt.title('Element Groups with Respective Depths in the Earth\'s Crust')
+plt.gca().invert_yaxis()
+plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+plt.tight_layout()
+plt.savefig('alloy_english_plot.png', dpi=600)
+plt.show()
