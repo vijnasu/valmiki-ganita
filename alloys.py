@@ -233,9 +233,6 @@ file_path = 'Element_Groups_Depths.xlsx'
 
 print(file_path)
 
-# Open the saved Excel file
-df = pd.read_excel('Element_Groups_Depths.xlsx')
-
 # Create a figure with a specific size
 plt.figure(figsize=(10, 8))
 
@@ -262,8 +259,8 @@ plt.grid(True, which='both', linestyle='--', linewidth=0.5)
 # Adjust layout to fit the window
 plt.tight_layout()
 
-# Show the graph
-plt.show()
-
 # Save the plot as a file
 plt.savefig('alloy_sanskrit_iso_plot.png', dpi=600)
+
+# Show the graph
+plt.show()
